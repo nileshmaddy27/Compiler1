@@ -1,0 +1,52 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    /* background-color: yellow; */
+}
+.main{
+    display: flex;
+    /* margin: auto; */
+    /* padding-left: 10px; */
+    margin-left: 2.5vw;
+    /* border: 10px solid red; */
+    /* background-color: red; */
+    /* margin-right: 1vw; */
+}
+#codebox{
+    border: 2px solid black;
+    height: 90vh;
+    width: 47vw;
+    background-color:rgb(241, 235, 162);
+    /* padding: 2vh; */
+}
+#inputbox{
+    border: 2px solid black;
+    height: 90vh;
+    width: 47vw;
+    background-color: rgb(241, 235, 162);
+}
+#code{
+    border: 2px solid black;
+    height: 85vh;
+    width: 45vw;
+    background-color: rgb(224, 237, 237);
+    /* overflow-x: scroll; */
+    overflow: scroll;
+    resize: none;
+    margin-right: 1vw;
+
+}
+#input{
+    border: 2px solid black;
+    height: 82vh;
+    width: 45vw;
+    /* overflow-x: scroll; */
+    background-color: rgb(224, 237, 237);
+    /* overflow-x: scroll; */
+    overflow: scroll;
+    resize: none;
+
+}
+#myform{
+    background-color: rgb(202, 192, 192);
+}
