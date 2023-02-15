@@ -38,7 +38,18 @@
 }
 #input{
     border: 2px solid black;
-    height: 82vh;
+    height: 43%;
+    width: 45vw;
+    /* overflow-x: scroll; */
+    background-color: rgb(224, 237, 237);
+    /* overflow-x: scroll; */
+    overflow: scroll;
+    resize: none;
+
+}
+#output{
+    border: 2px solid black;
+    height: 44%;
     width: 45vw;
     /* overflow-x: scroll; */
     background-color: rgb(224, 237, 237);
