@@ -11,9 +11,19 @@ app.use('/public', express.static('public'));
 // app.use('./', express.static('style.css'));
 var option={stats: true};
 compiler.init(option);
+app. set("view engine", "ejs"); 
+// Require static assets from public folder
+app.use(express.static(path.join(__dirname, 'public')));
+// Set view engine as EJS
+app.engine('ejs', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+// Set 'views' directory for any views 
+// being rendered res.render()
+app.set('views', path.join(__dirname, ''));
+app.use('/form', express.static(__dirname + '/index.ejs'));
 app.get("/", function(req, res)
 {
-    res.sendFile(__dirname+"/index.html");
+    res.render(__dirname+"/index.ejs");
     
 
 });
@@ -21,11 +31,12 @@ app.get("/", function(req, res)
 // {
 //     res.send("appu bhai!");
 // });
-app.post("/compilecode", function(req, res)
+app.post("/", function(req, res)
 {   
     // console.log(req.body);
     // res.send(req.form);
     var code=req.body.code;
+    var usercode = code;
     // res.send("dsm"+code);
     var input=req.body.input;
     var inputRadio=req.body.inputRadio;
@@ -40,18 +51,45 @@ app.post("/compilecode", function(req, res)
             compiler.compileCPPWithInput(envData, code, input, function(data){
                 if(data.error)
                 {
-                    res.send(data.error);
-
+                    // res.send(data.error);
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.error 
+                    });
                 }
                 else{
-                    res.send(data.output);
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.output 
+                    });
                 }
             });
         }
         else{
             var envData={OS: "windows", cmd: "g++", options:{timeout:10000}};
             compiler.compileCPP(envData, code, function(data){
-                res.send(data);
+                if(data.error)
+                {
+                    // res.send(data.error);
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.error 
+                    });
+                }
+                else{
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.output 
+                    });
+                }
                 //data.error
                 //data.output=output value
             });
@@ -64,7 +102,24 @@ app.post("/compilecode", function(req, res)
             var envData = { OS : "windows"};
         
             compiler.compilePythonWithInput( envData , code , input ,  function(data){
-                res.send(data);        
+                if(data.error)
+                {
+                    // res.send(data.error);
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.error 
+                    });
+                }
+                else{
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.output 
+                    });
+                }        
             })
         }
         else{
@@ -73,7 +128,24 @@ app.post("/compilecode", function(req, res)
 
             var envData = { OS : "linux" }; 
             compiler.compilePython( envData , code , function(data){
-                res.send(data);
+                if(data.error)
+                {
+                    // res.send(data.error);
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.error 
+                    });
+                }
+                else{
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.output 
+                    });
+                }
             })
             
         }
@@ -83,13 +155,47 @@ app.post("/compilecode", function(req, res)
         if(inputRadio==="true"){
             var envData = { OS : "windows"}; 
             compiler.compileJavaWithInput( envData , code , input ,  function(data){
-                res.send(data);
+                if(data.error)
+                {
+                    // res.send(data.error);
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.error 
+                    });
+                }
+                else{
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.output 
+                    });
+                }
             });
         }
         else{
             var envData = { OS : "windows"}; 
             compiler.compileJava( envData , code , function(data){
-            res.send(data);
+                if(data.error)
+                {
+                    // res.send(data.error);
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.error 
+                    });
+                }
+                else{
+                    res.render("index.ejs",
+                    
+                    {
+                        usercode,
+                        useroutput: data.output 
+                    });
+                }
             });  
             
         }
